@@ -1,5 +1,4 @@
-function NotificationDialog(content, buttonName, buttonClickedFunction = null) {
-
+function NotificationDialog(content, buttonName, buttonClickedFunction) {
 	this.content = content;
 	this.buttonName = buttonName;
 	this.buttonClickedFunction = buttonClickedFunction;
