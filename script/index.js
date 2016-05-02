@@ -126,7 +126,7 @@ function initGame() {
 		try {
 			var content = divInputBox.innerHTML.replace(new RegExp("×","gm"), "*").replace(new RegExp("÷","gm"), "/");
 			var value = eval(content);
-			if (parseInt(value) == 24) {
+			if (parseFloat(value) == 24) {
 				var time = timer.stop();
 				new NotificationDialog("恭喜你得到24！用时" + time, "下一轮", function() {
 					refreashGame();
