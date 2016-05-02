@@ -12,16 +12,14 @@ function NotificationDialog(content, buttonName, buttonClickedFunction) {
 			this.isShowen = true;
 			document.getElementById("div_text").innerHTML = this.content;
 			button.innerHTML = this.buttonName;
-			if (this.buttonClickedFunction != null) {
-				button.onclick = function() {
+			
+			button.addEventListener("touchstart", function() {
+				if (_this.buttonClickedFunction != null) {
 					_this.buttonClickedFunction();
-					_this.hide();
-				};
-			} else {
-				button.onclick = function() {
-					_this.hide();
 				}
-			}
+				_this.hide();
+			}, true);
+			
 			layout.style.display = "block";
 			layout.setAttribute("class", "show");
 		}

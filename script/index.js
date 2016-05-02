@@ -1,3 +1,7 @@
+//检测是否为手机登陆
+if (! device.mobile()) { 
+	window.location.href = "./error.html"; 
+}
 // 创建数字列表
 var numList = new Array();
 for (var i = 1; i < 14; i ++) {
@@ -48,16 +52,16 @@ function getElement(id) {
 
 // 初始化符号
 function initSymbol(index) {
-	getElement("div_symbol" + (index + 1)).onclick = function() {
+	getElement("div_symbol" + (index + 1)).addEventListener("touchstart", function(event) {
 		inputs.push(symbolList[index]);
 		divInputBox.innerHTML += symbolList[index];
-	};
+	}, true);
 }
 
 // 初始化数字控件
 function initNum(index) {
 	numDivList.push(getElement("div_num" + (index + 1)));
-	numDivList[index].onclick = function() {
+	numDivList[index].addEventListener("touchstart", function(event) {
 		if (numDivList[index].innerHTML == "") {
 			return;
 		}
@@ -80,8 +84,7 @@ function initNum(index) {
 		inputs.push(numDivList[index].innerHTML);
 		divInputBox.innerHTML += numDivList[index].innerHTML;
 		numDivList[index].innerHTML = "";
-		
-	}
+	}, true);
 	generateRandomNum();
 }
 
@@ -105,11 +108,12 @@ function initGame() {
 
 	divInputBox = getElement("div_input_box");
 
-	getElement("div_next").onclick = function() {
+	getElement("div_next").addEventListener("touchstart", function(event) {
 		refreashGame();
-	};
+	}, true);
 
-	getElement("div_sure").onclick = function() {
+
+	getElement("div_sure").addEventListener("touchstart", function() {
 		for (var i = 0; i < numDivList.length; i ++) {
 			if (numDivList[i].innerHTML != "") {
 				timer.stop();
@@ -139,9 +143,9 @@ function initGame() {
 				timer.restart();
 			}).show();
 		}
-	};
+	}, true);
 
-	getElement("div_delete").onclick = function() {
+	getElement("div_delete").addEventListener("touchstart", function() {
 		if (inputs.length == 0) {
 			return;
 		}
@@ -164,7 +168,7 @@ function initGame() {
 				return;
 			}
 		}
-	}
+	}, true);
 
 	timer = new Timer();
 	timer.start();
@@ -175,11 +179,11 @@ function initGame() {
 window.onload = function() {
 	var divDialog = getElement("div_dialog");
 	var divBegin = getElement("div_begin");
-	divBegin.onclick = function(event) {
+	divBegin.addEventListener("touchstart", function(event) {
 			divDialog.setAttribute("class", "hidden");
 			setTimeout(function() {
 				divDialog.style.display = "none";
 				initGame();
 			}, 300);
-		};
+		}, true);
 }
