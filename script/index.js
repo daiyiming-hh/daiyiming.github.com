@@ -85,15 +85,14 @@ function initNum(index) {
 		divInputBox.innerHTML += numDivList[index].innerHTML;
 		numDivList[index].innerHTML = "";
 	}, true);
-	generateRandomNum();
 }
 
 function refreashGame() {
 	timer.stop();
-	timer.start();
 	divInputBox.innerHTML = "";
 	inputs = new Array();
 	generateRandomNum();
+	timer.start();
 }
 
 // 初始化游戏
@@ -109,7 +108,11 @@ function initGame() {
 	divInputBox = getElement("div_input_box");
 
 	getElement("div_next").addEventListener("touchstart", function(event) {
-		refreashGame();
+		timer.stop();
+		var result = new Calculate24(numInputList).getExpression();
+		new NotificationDialog("答案：" + (result == null? "无解" : result), "下一关", function() {
+			refreashGame();
+		}).show();
 	}, true);
 
 
@@ -170,9 +173,10 @@ function initGame() {
 		}
 	}, true);
 
+	generateRandomNum();
+
 	timer = new Timer();
 	timer.start();
-
 }
 
 // 页面加载完成后执行
