@@ -1,8 +1,15 @@
 function Timer() {
 	var layout = document.getElementById("div_timer");
 	var startTimeStamp = 0;
-	var timer = null;
 	var time = 0;
+	var isStop = false;
+
+	// js计时器太坑，只有一直开着了
+	setInterval(function() {
+		if (! isStop) {
+			setTime(time = new Date().getTime() - startTimeStamp);
+		}	
+	}, 1000);
 
 	var getTime = function(time) {
 		var seconds = parseInt(time / 1000 % 60);
@@ -18,21 +25,16 @@ function Timer() {
 	this.start = function() {
 		startTimeStamp = new Date().getTime();
 		layout.innerHTML = "00:00";
-		timer = setInterval(function() {
-			setTime(time = new Date().getTime() - startTimeStamp);
-		}, 1000);
+		isStop = false;
 	}
 
 	this.restart = function() {
 		startTimeStamp = new Date().getTime() - time;
-		timer = setInterval(function() {
-			setTime(time = new Date().getTime() - startTimeStamp);
-		}, 1000);
-	
+		isStop = false;
 	}
 
 	this.stop = function() {
-		clearInterval(timer);
+		isStop = true;
 		return getTime(time = new Date().getTime() - startTimeStamp);
 	}
 }

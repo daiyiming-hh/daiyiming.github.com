@@ -182,8 +182,7 @@ function initGame() {
 // 页面加载完成后执行
 window.onload = function() {
 	var divDialog = getElement("div_dialog");
-	var divBegin = getElement("div_begin");
-	divBegin.addEventListener("touchstart", function(event) {
+	getElement("div_begin").addEventListener("touchstart", function(event) {
 			divDialog.setAttribute("class", "hidden");
 			setTimeout(function() {
 				divDialog.style.display = "none";
